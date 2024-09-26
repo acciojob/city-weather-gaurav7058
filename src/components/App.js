@@ -4,27 +4,27 @@ import './../styles/App.css';
 const App = () => {
   const API_KEY = "80691db5308031732158344d66e5d46d";
   const [data, setData] = useState({});
-  const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  
 
   // useEffect(()=>{
     
   //   handleGenerate();
   // },[])
   const handleGenerate = () => {
-    if (query) {
-      setLoading(true);
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${API_KEY}`)
+    if (search) {
+     
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${API_KEY}`)
         .then(res => res.json())
         .then(json => {
           console.log(json);
           setData(json);
-          setQuery("");  // Clear the input
-          setLoading(false);
+          setSearch("");  // Clear the input
+
         })
         .catch(error => {
           console.log(error);
-          setLoading(false);
+          
         });
     }
   };
@@ -32,23 +32,19 @@ const App = () => {
     <div>
       <input
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
         className="search"
       />
       <button onClick={handleGenerate}>Generate</button>
       <div className="weather">
-  {loading ? (
-    <p>Loading...</p>
-  ) : data && data.main ? (
-    <div>
-      <h3>{data.name}</h3>
-      <p>Temperature: {data.main.temp}°C</p>
-      <p>Weather: {data.weather[0].description}</p>
-    </div>
-  ) : (
-    <p>No data</p>
-  )}
+      {data && data.main && (
+          <div>
+            <h3>{data.name}</h3>
+            <p>Temperature: {data.main.temp}°C</p>
+            <p>Weather: {data.weather[0].description}</p>
+          </div>
+        )}
 </div>
       {/* Do not remove the main div */}
     </div>
