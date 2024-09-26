@@ -37,9 +37,9 @@ const App = () => {
         className="search"
       />
       <button onClick={handleGenerate}>Generate</button>
-      <div className="weather">
+      <div >
       {data && data.main && (
-          <div>
+          <div className="weather">
             <h3>{data.name}</h3>
             <p>Temperature: {data.main.temp}°C</p>
             <p>Weather: {data.weather[0].description}</p>
