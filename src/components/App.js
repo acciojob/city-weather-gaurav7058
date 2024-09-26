@@ -18,6 +18,7 @@ const App = () => {
           setData(json);
         })
         .catch(error => console.log(error));
+        setQuery("")
   };
   return (
     <div>
